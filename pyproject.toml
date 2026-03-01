@@ -16,6 +16,7 @@ dependencies = [
     "tqdm",
     "tensorboard",
     "cython",
+    "pandas>=2.3.3",
 ]
 
 [[tool.uv.index]]
