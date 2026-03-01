@@ -1,0 +1,32 @@
+# Data and Models
+data/
+outputs/
+*.pth
+*.onnx
+checkpoints/
+logs/
+runs/
+wandb/
+
+# Python caches
+__pycache__/
+.venv/
+.uv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Python build artifacts
+dist/
+build/
+*.egg-info/
+
+# Tooling / version files
+.python-version
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
