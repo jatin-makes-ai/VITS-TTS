@@ -24,9 +24,11 @@ build/
 
 # Tooling / version files
 .python-version
+.env
 
 # IDE / OS files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+

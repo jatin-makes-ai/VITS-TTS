@@ -3,7 +3,7 @@ name = "vits-tts"
 version = "0.1.0"
 description = "Low-latency VITS TTS project"
 readme = "README.md"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10,<3.12"
 dependencies = [
     "torch==2.4.1",
     "torchvision==0.19.1",
@@ -17,6 +17,7 @@ dependencies = [
     "tensorboard",
     "cython",
     "pandas>=2.3.3",
+    "monotonic-align==1.0.0",
 ]
 
 [[tool.uv.index]]

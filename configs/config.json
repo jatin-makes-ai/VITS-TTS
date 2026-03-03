@@ -1,0 +1,13 @@
+{
+    "train": {
+      "batch_size": 4,
+      "learning_rate": 2e-4,
+      "segment_size": 16384
+    },
+    "data": {
+      "sampling_rate": 22050,
+      "n_fft": 1024,
+      "hop_length": 256,
+      "win_length": 1024
+    }
+}
