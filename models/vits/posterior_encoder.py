@@ -54,6 +54,8 @@ class PosteriorEncoder(nn.Module):
             
         stats = self.proj(x) * x_mask
         m, logs = torch.split(stats, self.out_channels, dim=1)
+        # Clamp logs to prevent exp() explosion → NaN early in training
+        logs = torch.clamp(logs, min=-10, max=10)
         # Reparameterization: z = m + exp(logs) * eps
         z = m + torch.exp(logs) * torch.randn_like(m)
         return z, m, logs, x_mask

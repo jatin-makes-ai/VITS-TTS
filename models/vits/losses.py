@@ -1,5 +1,5 @@
 import torch
-from torch.nn import functional as F
+import torch.nn.functional as F
 
 def feature_loss(fmap_r, fmap_g):
     """Feature Matching Loss: Ensures synthetic features match real ones."""
@@ -34,7 +34,14 @@ def kl_loss(z_p, logs_q, m_p, logs_p, z_mask):
     logs_p = logs_p.float()
     z_mask = z_mask.float()
 
-    kl = logs_p - logs_q - 0.5
-    kl += 0.5 * ((z_p - m_p)**2) * torch.exp(-2. * logs_p)
+    # Clamp to prevent exp(-2*logs_p) from exploding when logs_p is very negative
+    logs_p_clamped = torch.clamp(logs_p, min=-10, max=10)
+    kl = logs_p_clamped - logs_q - 0.5
+    kl += 0.5 * ((z_p - m_p)**2) * torch.exp(-2. * logs_p_clamped)
     kl = torch.sum(kl * z_mask)
     return kl / torch.sum(z_mask)
+
+
+def mel_loss(y_mel, y_hat_mel):
+    """L1 loss on log-mel spectrograms. Key stabilizer for VITS training."""
+    return F.l1_loss(y_mel, y_hat_mel)

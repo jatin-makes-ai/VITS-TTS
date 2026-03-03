@@ -1,6 +1,6 @@
 {
     "train": {
-      "batch_size": 4,
+      "batch_size": 2,
       "learning_rate": 2e-4,
       "segment_size": 16384
     },

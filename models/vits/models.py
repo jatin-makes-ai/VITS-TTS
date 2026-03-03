@@ -85,11 +85,15 @@ class SynthesizerTrn(nn.Module):
         # Slices segment_size//hop frames for the generator (hop=256)
         b, c, t = x.size()
         segment_frames = segment_size // 256
-        ids_str_max = (lengths - segment_frames).clamp(min=0)
+        # Clamp against actual tensor length — lengths (from audio_lengths // hop)
+        # can exceed t because STFT with center=False produces fewer frames
+        safe_lengths = lengths.clamp(max=t)
+        ids_str_max = (safe_lengths - segment_frames).clamp(min=0)
         ids_str = (torch.rand([b]).to(device=x.device) * (ids_str_max.float() + 1e-8)).long()
         ret = torch.zeros([b, c, segment_frames], device=x.device, dtype=x.dtype)
         for i in range(b):
             start = ids_str[i].item()
-            end = min(start + segment_frames, lengths[i].item())
-            ret[i, :, : end - start] = x[i, :, start:end]
+            end = min(start + segment_frames, safe_lengths[i].item())
+            if end > start:
+                ret[i, :, : end - start] = x[i, :, start:end]
         return ret, ids_str
