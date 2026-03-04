@@ -2,6 +2,7 @@
 data/
 outputs/
 *.pth
+*.pt
 *.onnx
 checkpoints/
 logs/

@@ -18,6 +18,8 @@ dependencies = [
     "cython",
     "pandas>=2.3.3",
     "monotonic-align==1.0.0",
+    "datasets>=2.18.0",
+    "soundfile>=0.12.0",
 ]
 
 [[tool.uv.index]]
